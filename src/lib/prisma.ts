@@ -1,24 +1,33 @@
-import {PrismaClient} from "@prisma/client";
-import {PrismaPg} from "@prisma/adapter-pg";
-import {Pool} from "pg";
+import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
+import { Pool } from "pg";
+import { attachDatabasePool } from "@vercel/functions";
 
 const globalForPrisma = globalThis as unknown as {
     prisma?: PrismaClient;
     pool?: Pool;
 };
 
-// Reuse pool + prisma in dev (Next.js hot reload)
-const pool = globalForPrisma.pool ?? new Pool(
-    {connectionString: process.env.DATABASE_URL}
-);
+const connectionString =
+    process.env.DATABASE_URL || process.env.POSTGRES_URL;
 
-const adapter = new PrismaPg(pool);
+if (!connectionString) {
+    throw new Error("Missing DATABASE_URL (or POSTGRES_URL) env var");
+}
 
-const prisma = globalForPrisma.prisma ?? new PrismaClient({
-    adapter,
-    log: process.env.NODE_ENV === "development"
-        ? ["error", "warn"]
-        : ["error"]
+const pool =
+    globalForPrisma.pool ??
+    new Pool({
+    connectionString,
+});
+
+attachDatabasePool(pool); 
+
+const prisma =
+    globalForPrisma.prisma ??
+    new PrismaClient({
+    adapter: new PrismaPg(pool),
+    log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
 });
 
 if (process.env.NODE_ENV !== "production") {
