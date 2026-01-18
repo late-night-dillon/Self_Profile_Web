@@ -19,7 +19,7 @@ export default async function Home() {
         {/* top nav */}
         <header className="flex items-center justify-between gap-4">
           <div className="text-sm font-medium tracking-wide text-white/80">
-            Dillon Donetta
+            <h1>Dillon Donetta</h1>
           </div>
 
           <nav className="hidden gap-5 text-sm md:flex">

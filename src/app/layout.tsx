@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Nama Kamu — Portfolio",
+  title: "My Profile",
   description: "Website profile/portfolio dengan Next.js + Tailwind + Postgres",
 };
 
