@@ -18,8 +18,8 @@ export default async function Home() {
       <main className="mx-auto max-w-5xl px-6 py-14">
         {/* top nav */}
         <header className="flex items-center justify-between gap-4">
-          <div className="text-sm font-medium tracking-wide text-white/80">
-            <h1>Dillon Donetta</h1>
+          <div className="text-2xl font-semibold tracking-wide text-white/80">
+            Dillon Donetta
           </div>
 
           <nav className="hidden gap-5 text-sm md:flex">
@@ -44,7 +44,7 @@ export default async function Home() {
 
         {/* hero */}
         <section className="mt-14">
-          <h1 className="text-4xl font-bold tracking-tight md:text-6xl">
+          <h1 className="text-3xl font-bold tracking-tight md:text-5xl">
             Frontend Developer
             <span className="text-white/60"> — Next.js & Tailwind</span>
           </h1>
